@@ -20,6 +20,7 @@ NeoVim
 - [Buffer](#buffer)
 - [Window](#window)
 - [Tabpage](#tabpage)
+- [Terminal](#terminal)
 
 #### Plugin Key Mappings
 - [Airline](#airline)
@@ -39,6 +40,13 @@ NeoVim
 - [Surround](#surround)
 - [UndoTree](#undotree)
 - [FileType: Markdown](#filetype-markdown)
+
+#### Commands
+- [Terminal Commands](#terminal-commands)
+- [Helper Commands](#helper-commands)
+
+#### Abbreviations
+- [Command Abbreviations](#command-abbreviations)
 
 #### Clean up
 - [Uninstall](#uninstall)
@@ -131,6 +139,7 @@ CSS3       | [hail2u/vim-css3-syntax](https://github.com/hail2u/vim-css3-syntax)
 &nbsp;     | [ap/vim-css-color](https://github.com/ap/vim-css-color)
 HTML5      | [othree/html5.vim](https://github.com/othree/html5.vim)
 JavaScript | [pangloss/vim-javascript](https://github.com/pangloss/vim-javascript)
+&nbsp;     | [gavocanov/vim-js-indent](https://github.com/gavocanov/vim-js-indent)
 Markdown   | [plasticboy/vim-markdown](https://github.com/plasticboy/vim-markdown)
 &nbsp;     | [JamshedVesuna/vim-markdown-preview](https://github.com/JamshedVesuna/vim-markdown-preview)
 Pug        | [digitaltoad/vim-pug](https://github.com/digitaltoad/vim-pug)
@@ -206,6 +215,11 @@ Alias                            | To
 | v   | <kbd>Opt-Shift-q</kbd> | Close current tab
 | v   | <kbd>Opt-Shift-[</kbd> | Switch to previous tab
 | v   | <kbd>Opt-Shift-]</kbd> | Switch to next tab
+
+### Terminal
+| T   | Keystroke     | Action
+| :-: | ---------     | ------
+| v   | <kbd>⌃l</kbd> | Enter `-- NORMAL --` from `-- TERMINAL --`
 
 Plugin Key Mappings
 ---------------
@@ -353,6 +367,32 @@ Keystroke                                        | Action
 | v   | v   | v   | <kbd>[</kbd><kbd>[</kbd> | Jump to previous title
 | v   | v   | v   | <kbd>]</kbd><kbd>]</kbd> | Jump to next title
 | v   |     |     | <kbd>Enter</kbd>         | Open markdown preview on Safari ([`grip`](#markdown-preview-with-github) required)
+
+Commands
+--------
+
+### Terminal Commands
+Command        | Description
+-------        | -----------
+`:ClearScroll` | Clear scroll history of current terminal buffer
+
+### Helper Commands
+Command        | Description
+-------        | -----------
+`:SyntaxCheck` | Print current highlighted syntaxes at cursor position
+
+Abbreviations
+-------------
+
+### Command Abbreviations
+lhs | rhs | Description
+--- | --- | -----------
+Wq  | wq  | Write & quit
+WQ  | wq  | Write & quit
+Qa  | qa  | Quit all
+QA  | qa  | Quit all
+Wqa | wqa | Write & quit all
+WQa | wqa | Write & quit all
 
 Uninstall
 ---------

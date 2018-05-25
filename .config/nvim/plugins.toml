@@ -208,12 +208,6 @@ hook_add = 'source $NVIM_PLUGINS/undotree.vim'
 repo = 'tpope/vim-repeat'
 lazy = 1
 
-# Tagbar
-# https://github.com/majutsushi/tagbar
-[[plugins]]
-repo = 'majutsushi/tagbar'
-on_cmd = 'Tagbar'
-
 # ================================
 # Language
 # ================================
@@ -245,8 +239,16 @@ hook_add = '''
 
 # JavaScript .js
 # https://github.com/pangloss/vim-javascript
+# https://github.com/gavocanov/vim-js-indent
 [[plugins]]
 repo = 'pangloss/vim-javascript'
+on_ft = 'javascript'
+hook_add = '''
+  let g:javascript_plugin_flow = 1
+'''
+[[plugins]]
+repo = 'gavocanov/vim-js-indent'
+depends = 'vim-javascript'
 on_ft = 'javascript'
 
 # Markdown .md
