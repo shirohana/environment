@@ -41,6 +41,14 @@ lazy = 0
 # File Navigation
 # ================================
 
+# CtrlSpace
+# https://github.com/vim-ctrlspace/vim-ctrlspace
+[[plugins]]
+repo = 'vim-ctrlspace/vim-ctrlspace'
+depends = 'fzf.vim'
+lazy = 0
+hook_add = 'source $NVIM_PLUGINS/ctrlspace.vim'
+
 # NERDTree
 # https://github.com/scrooloose/nerdtree
 [[plugins]]
@@ -128,6 +136,18 @@ repo = 'junegunn/vim-easy-align'
 depends = 'vim-repeat'
 on_map = ['<Plug>(EasyAlign', '<Plug>(LiveEasyAlign)']
 
+# EditorConfig
+# https://github.com/editorconfig/editorconfig-vim
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+on_event = 'InsertEnter'
+hook_add = '''
+  let g:EditorConfig_disable_rules = [
+    \ 'insert_final_newline',
+    \ 'trim_trailing_whitespace',
+    \ ]
+'''
+
 # GitGutter
 # https://github.com/airblade/vim-gitgutter
 [[plugins]]
@@ -158,6 +178,16 @@ lazy = 0
 hook_add = '''
   autocmd MyAutoCmd BufEnter * let b:peekaboo_on = 1
   let g:peekaboo_delay = 250
+'''
+
+# SplitJoin
+# https://github.com/AndrewRadev/splitjoin.vim
+[[plugins]]
+repo = 'AndrewRadev/splitjoin.vim'
+on_map = '<Plug>Splitjoin'
+hook_add = '''
+  let g:splitjoin_join_mapping = 0
+  let g:splitjoin_split_mapping = 0
 '''
 
 # Surround
@@ -225,6 +255,12 @@ hook_add = '''
 repo = 'ap/vim-css-color'
 on_ft = ['css', 'stylus']
 
+# Dockerfile docker-compose.yml
+# https://github.com/ekalinin/Dockerfile.vim
+[[plugins]]
+repo = 'ekalinin/Dockerfile.vim'
+on_ft = ['Dockerfile', 'docker-compose']
+
 # HTML5 .html .htm
 # https://github.com/othree/html5.vim
 [[plugins]]
@@ -240,6 +276,8 @@ hook_add = '''
 # JavaScript .js
 # https://github.com/pangloss/vim-javascript
 # https://github.com/gavocanov/vim-js-indent
+# https://github.com/mxw/vim-jsx
+# https://github.com/Quramy/vim-js-pretty-template
 [[plugins]]
 repo = 'pangloss/vim-javascript'
 on_ft = 'javascript'
@@ -250,6 +288,18 @@ hook_add = '''
 repo = 'gavocanov/vim-js-indent'
 depends = 'vim-javascript'
 on_ft = 'javascript'
+[[plugins]]
+repo = 'mxw/vim-jsx'
+depends = 'vim-javascript'
+on_ft = 'javascript'
+[[plugins]]
+repo = 'Quramy/vim-js-pretty-template'
+depends = ['vim-pug', 'vim-jsx']
+on_ft = 'javascript'
+hook_source = '''
+  call jspretmpl#register_tag('pug', 'pug')
+  autocmd MyAutoCmd FileType javascript* JsPreTmpl jsx
+'''
 
 # Markdown .md
 # https://github.com/plasticboy/vim-markdown
@@ -271,6 +321,12 @@ hook_add = '''
   let g:vim_markdown_preview_github = 1
   let g:vim_markdown_preview_browser = 'Safari'
 '''
+
+# Nginx conf
+# https://github.com/chr4/nginx.vim
+[[plugins]]
+repo = 'chr4/nginx.vim'
+on_ft = 'nginx'
 
 # Pug .pug
 # https://github.com/digitaltoad/vim-pug

@@ -1,6 +1,8 @@
 " ======== Defaults ========
 nmap s <Nop>
 nmap Q <Nop>
+nmap K <Nop>
+vmap s <Nop>
 
 " ======== Generic ========
 " Better <Esc>
@@ -19,6 +21,9 @@ nnoremap zh z8h
 nnoremap <Bslash> <C-o>
 " Jump to newer cursor position
 nnoremap <Bar> <C-i>
+" Search left/rright of previous inline-jump by <Opt-,> and <Opt-.>
+noremap ≤ ,
+noremap ≥ ;
 
 " ======== Editing ========
 " Insert one line above current line in -- INSERT --
@@ -37,13 +42,17 @@ cnoremap <C-e> <End>
 " ======== Buffer ========
 " Create New Buffer, using `Opt-t`
 nnoremap <silent> † :<C-u>enew<CR>
-" Save buffer
+" Save Buffer
 nnoremap <silent> <Leader>w :<C-u>write<CR>
-" Wipe buffer
-nmap <Leader>q <Plug>(close-buffer-keep-windows)
+" Reload Buffer
+nnoremap <silent> <Leader>e :<C-u>edit<CR>
+" Wipe Buffer
+nmap <Leader>q <Plug>(close-buffer-keep-layout)
+" Save & Wipe Buffer
+nnoremap <silent> <Leader>W :<C-u>write <bar> exec "normal \<Plug>(close-buffer-keep-layout)"<CR>
 " Buffer Navigating, using `Opt+[` & `Opt+]`
-nnoremap <silent> ‘ :<C-u>bnext<CR>
-nnoremap <silent> “ :<C-u>bprev<CR>
+nnoremap <silent> “ :<C-u>PrevBuffer<CR>
+nnoremap <silent> ‘ :<C-u>NextBuffer<CR>
 
 " ======== Window ========
 " Create Vertical Split, using `<Space>[hl]`
@@ -59,27 +68,39 @@ nnoremap <silent> ˙ <C-w>h
 nnoremap <silent> ∆ <C-w>j
 nnoremap <silent> ˚ <C-w>k
 nnoremap <silent> ¬ <C-w>l
-" Next/Prev Window, using <Tab> and <S-Tab>
-nnoremap <silent> <Tab>   <C-w>w
-nnoremap <silent> <S-Tab> <C-w>W
 " Window Resize, using arrow keys
 nnoremap <silent> <Up>    :<C-u>resize -2<CR>
 nnoremap <silent> <Down>  :<C-u>resize +2<CR>
 nnoremap <silent> <Left>  :<C-u>vertical resize -4<CR>
 nnoremap <silent> <Right> :<C-u>vertical resize +4<CR>
+" Toggle Zoom
+nnoremap <silent> <Leader>z :<C-u>ToggleZoomWindow<CR>
 
 " ======== Tabpage ========
 " Create New Tab, using `Opt-Shift-t`
-nnoremap <silent> ˇ <C-w>s<C-w>T
+nnoremap <silent> ˇ :<C-u>tabnew<CR>
 " Close Tab, using `Opt-Shift-q`
 nnoremap <silent> Œ :<C-u>tabclose<CR>
-" Tab Navigating, using `Opt-Shift-[` & `Opt-Shift-]`
+" Next/Prev Tab, using `Opt-Shift-[` & `Opt-Shift-]`
 nnoremap <silent> ’ :<C-u>tabnext<CR>
 nnoremap <silent> ” :<C-u>tabprevious<CR>
+" Next/Prev Tab, using <Tab> and <S-Tab>
+nnoremap <silent> <Tab>   :<C-u>tabnext<CR>
+nnoremap <silent> <S-Tab> :<C-u>tabprevious<CR>
+" Tab Navigating, using `Opt+[1-9]`
+nnoremap ¡ :<C-u>1tabn<CR>
+nnoremap ™ :<C-u>2tabn<CR>
+nnoremap £ :<C-u>3tabn<CR>
+nnoremap ¢ :<C-u>4tabn<CR>
+nnoremap ∞ :<C-u>5tabn<CR>
+nnoremap § :<C-u>6tabn<CR>
+nnoremap ¶ :<C-u>7tabn<CR>
+nnoremap • :<C-u>8tabn<CR>
+nnoremap ª :<C-u>9tabn<CR>
 
 " ======== Terminal ========
 " Enter -- NORMAL --
-tnoremap <C-l> <C-\><C-n>
+tnoremap <C-k> <C-\><C-n>
 
 " ======== Temporary ========
 nnoremap <F5> :so ~/.config/nvim/init.vim<CR>

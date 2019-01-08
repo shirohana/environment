@@ -1,20 +1,3 @@
-" ======== Airline ======== {{{
-if dein#tap('vim-airline')
-  " Buffer Navigating, using `Opt+[1-9]`
-  if get(g:, 'airline#extensions#tabline#buffer_idx_mode', 0)
-    nmap ¡ <Plug>AirlineSelectTab1
-    nmap ™ <Plug>AirlineSelectTab2
-    nmap £ <Plug>AirlineSelectTab3
-    nmap ¢ <Plug>AirlineSelectTab4
-    nmap ∞ <Plug>AirlineSelectTab5
-    nmap § <Plug>AirlineSelectTab6
-    nmap ¶ <Plug>AirlineSelectTab7
-    nmap • <Plug>AirlineSelectTab8
-    nmap ª <Plug>AirlineSelectTab9
-  endif
-endif
-" }}}
-
 " ======== AutoPairs ======== {{{
 if dein#tap('auto-pairs')
   let g:AutoPairsShortcutBackInsert = '<C-b>'
@@ -32,6 +15,25 @@ if dein#tap('vim-commentary')
   nmap gcc <Plug>CommentaryLine
   nmap cgc <Plug>ChangeCommentary
   nmap gcu <Plug>Commentary<Plug>Commentary
+endif
+" }}}
+
+" ======== CtrlSpace ======== {{{
+if dein#tap('vim-ctrlspace')
+  " Show ctrlspace menu
+  nnoremap <LocalLeader>c :<C-u>CtrlSpace<CR>
+  " Buffer Navigating
+  nnoremap <silent> <C-o> :<C-u>CtrlSpaceBuffers<CR>
+  " Create New Workspace, using <Opt-Shift-w>
+  nnoremap <silent> „ :<C-u>CtrlSpaceNewWorkspace<CR>
+  " Load Workspace, using <Opt-w>
+  nnoremap <silent> ∑ :<C-u>LoadWorkspace<CR>
+  " Save workspace, using <Opt-s>
+  nnoremap <silent> ß :<C-u>SaveWorkspace<CR>
+  " Save Workspace with Name, using <Opt-Shift-s>
+  nnoremap <silent> Í :<C-u>SaveWorkspacePrompt<CR>
+  " Rename tab
+  nnoremap <silent> <LocalLeader>= :<C-u>RenameTabLabel<CR>
 endif
 " }}}
 
@@ -71,10 +73,10 @@ if dein#tap('vim-easymotion')
   nmap st <Plug>(easymotion-tl)
   nmap sT <Plug>(easymotion-Tl)
   " Word Searching (visual mode)
-  vmap f <Plug>(easymotion-fl)
-  vmap F <Plug>(easymotion-Fl)
-  vmap t <Plug>(easymotion-tl)
-  vmap T <Plug>(easymotion-Tl)
+  vmap sf <Plug>(easymotion-fl)
+  vmap sF <Plug>(easymotion-Fl)
+  vmap st <Plug>(easymotion-tl)
+  vmap sT <Plug>(easymotion-Tl)
   " Word Searching (operating mode)
   if get(g:, 'force_fix_easymotion_cursor', 0)
     omap f <Plug>(easymotion-fl-fix)
@@ -92,10 +94,12 @@ endif
 
 " ======== FZF ======== {{{
 if dein#tap('fzf.vim')
-  nnoremap <C-o> :Buffers<CR>
-  nnoremap <C-p> :Files<CR>
+  if mapcheck('<C-o>', 'n') == ''
+    nnoremap <C-o> :<C-u>Buffers<CR>
+  endif
+  nnoremap <C-p> :<C-u>Files<CR>
   " `Opt-f` to search file contents
-  nnoremap ƒ :Ag<Space>
+  nnoremap ƒ :<C-u>Ag<Space>
 endif
 " }}}
 
@@ -104,12 +108,15 @@ if dein#tap('vim-gitgutter')
   " Hunk Navigating
   nmap sj <Plug>GitGutterNextHunk
   nmap sk <Plug>GitGutterPrevHunk
-  " Hunk Staging
-  nmap     <LocalLeader>ss <Plug>GitGutterStageHunk
-  nnoremap <LocalLeader>su :<C-u>call system('git reset '.expand('%')) <bar> GitGutterAll<CR>
-  " Hunk Actions
+  " Refresh Gutter
+  nnoremap <silent> <LocalLeader>sa :<C-u>GitGutterAll<CR>
+  " Stage Current Hunk
+  nmap <LocalLeader>ss <Plug>GitGutterStageHunk
+  " Unstage Current File
+  nnoremap <silent> <LocalLeader>su :<C-u>call system('git reset '.expand('%')) <bar> GitGutterAll<CR>
+  " Hard Reset Current Hunk
   nmap <LocalLeader>sr <Plug>GitGutterUndoHunk
-  " Toggle Preview Hunk
+  " Toggle Hunk Preview
   nmap <silent> <LocalLeader>s<Space> <Plug>(helper-gitgutter-toggle-preview)
 endif
 " }}}
@@ -150,6 +157,13 @@ if dein#tap('vim-peekaboo')
 endif
 " }}}
 
+" ======== SplitJoin ======== {{{
+if dein#tap('splitjoin.vim')
+  nmap gS <Plug>SplitjoinSplit
+  nmap gJ <Plug>SplitjoinJoin
+endif
+" }}}
+
 " ======== Surround ======== {{{
 if dein#tap('vim-surround')
   nmap cs  <Plug>Csurround
@@ -169,6 +183,7 @@ if dein#tap('ultisnips')
   let g:UltiSnipsExpandTrigger = '<Tab>'
   let g:UltiSnipsJumpForwardTrigger = '<Tab>'
   let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  autocmd MyAutoCmd FileType stylus inoremap <CR> <C-R>=(helper#ultisnips#ExpandOrJump() > 0) ? '' : "\n"<CR>
 endif
 " }}}
 
@@ -180,12 +195,11 @@ endif
 
 " ======== FileType:Markdown ======== {{{
 if dein#tap('vim-markdown')
-  autocmd MyAutoCmd FileType markdown
-        \ map ]] <Plug>Markdown_MoveToNextHeader |
-        \ map [[ <Plug>Markdown_MoveToPreviousHeader
+  autocmd MyAutoCmd FileType markdown map ]] <Plug>Markdown_MoveToNextHeader
+  autocmd MyAutoCmd FileType markdown map [[ <Plug>Markdown_MoveToPreviousHeader
 endif
 if dein#tap('vim-markdown-preview')
   autocmd MyAutoCmd FileType markdown
-        \ nnoremap <silent> <CR> :<C-u>call Vim_Markdown_Preview_Local()<CR>
+        \ nnoremap <buffer> <silent> <CR> :<C-u>call Vim_Markdown_Preview_Local()<CR>
 endif
 " }}}
